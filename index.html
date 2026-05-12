@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>BK EARN PRO</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-color: #3B82F6;
+            --secondary-color: #10B981;
+            --background-start-color: #BFDBFE;
+            --background-end-color: #A5F3FC;
+            --card-bg-color: rgba(255, 255, 255, 0.45);
+            --text-color: #1F2937;
+            --light-text-color: #ffffff;
+            --border-color: rgba(255, 255, 255, 0.6);
+            --danger-color: #EF4444;
+            --warning-color: #F59E0B;
+            --font-family: 'Poppins', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background: linear-gradient(135deg, var(--background-start-color), var(--background-end-color));
+            background-attachment: fixed;
+            color: var(--text-color);
+            -webkit-tap-highlight-color: transparent;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        .hidden { 
+            display: none !important; 
+        }
+
+        .card {
+            background: var(--card-bg-color);
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1.5px solid var(--border-color);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 14px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+            color: var(--light-text-color);
+        }
+
+        .btn:active {
+            transform: scale(0.97);
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary-color), #60A5FA);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(90deg, var(--secondary-color), #34D399);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+        
+        .btn-info {
+            background: linear-gradient(90deg, var(--warning-color), #FBBF24);
+            box-shadow: 0 4px 15px rgba(245, 158, 11, 0.3);
+        }
+
+        .header {
+            color: var(--text-color);
+            padding: 20px 0;
+            text-align: left;
+        }
+        
+        .header p {
+            margin: 0; 
+            font-size: 1.2em; 
+            font-weight: 500;
+        }
+        
+        .wallet-balance {
+            font-size: 2.5em; 
+            font-weight: 700; 
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #onboarding-screen {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: linear-gradient(135deg, var(--background-start-color), var(--background-end-color));
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            z-index: 1000;
+        }
+        
+        #onboarding-box {
+            background: var(--card-bg-color);
+            padding: 30px; 
+            border-radius: 20px; 
+            text-align: center; 
+            width: 90%; 
+            max-width: 380px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            backdrop-filter: blur(12px); 
+            -webkit-backdrop-filter: blur(12px);
+            border: 1.5px solid var(--border-color);
+        }
+        
+        #onboarding-box h2 { 
+            margin-top: 0; 
+            color: var(--text-color); 
+            font-weight: 600; 
+        }
+        
+        #onboarding-box input {
+            width: 100%; 
+            padding: 14px; 
+            margin-bottom: 15px;
+            border: 1px solid var(--border-color); 
+            border-radius: 12px; 
+            font-size: 1em;
+            background: rgba(255, 255, 255, 0.5); 
+            font-family: var(--font-family);
+        }
+        
+        #onboarding-box button {
+            width: 100%; 
+            padding: 14px; 
+            background: var(--primary-color);
+            color: var(--light-text-color); 
+            border: none; 
+            border-radius: 12px; 
+            cursor: pointer;
+            font-size: 1.1em; 
+            font-weight: 600;
+        }
+
+        input[type="text"], input[type="number"], input[type="file"] {
+            width: 100%; 
+            padding: 14px; 
+            margin-bottom: 10px;
+            border: 1px solid var(--border-color); 
+            border-radius: 12px;
+            font-size: 1em; 
+            font-family: var(--font-family);
+            background-color: rgba(255, 255, 255, 0.5);
+            color: var(--text-color);
+        }
+        
+        input::placeholder { 
+            color: #6B7280; 
+        }
+
+        nav {
+            position: fixed; 
+            bottom: 15px; 
+            left: 50%;
+            transform: translateX(-50%);
+            width: 95%; 
+            max-width: 480px;
+            background: rgba(255, 255, 255, 0.6);
+            display: flex; 
+            justify-content: space-around;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.15);
+            backdrop-filter: blur(15px); 
+            -webkit-backdrop-filter: blur(15px);
+            border: 1.5px solid rgba(255, 255, 255, 0.7);
+            border-radius: 50px;
+            z-index: 100;
+            padding: 5px 0;
+        }
+        
+        nav button {
+            padding: 10px 5px; 
+            border: none; 
+            background: none; 
+            cursor: pointer;
+            flex-grow: 1; 
+            font-size: 0.8em; 
+            color: #6B7280;
+            transition: color 0.3s, transform 0.2s;
+            font-weight: 500;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+        }
+        
+        nav button:active { 
+            transform: scale(0.9); 
+        }
+        
+        nav button.active { 
+            color: var(--primary-color); 
+            font-weight: 700; 
+        }
+        
+        .page { 
+            padding-bottom: 100px;
+        }
+
+        .wheel-container { 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            margin: 25px 0; 
+            position: relative; 
+        }
+        
+        #wheel {
+            width: 250px; 
+            height: 250px;
+            background-image: conic-gradient(
+                #60A5FA 0% 12.5%, 
+                #34D399 12.5% 25%, 
+                #FBBF24 25% 37.5%, 
+                #F87171 37.5% 50%, 
+                #A78BFA 50% 62.5%, 
+                #EC4899 62.5% 75%, 
+                #22D3EE 75% 87.5%, 
+                #4ADE80 87.5% 100%
+            );
+            border: 5px solid #fff; 
+            border-radius: 50%;
+            transition: transform 4s cubic-bezier(0.25, 0.1, 0.25, 1);
+            box-shadow: 0 0 25px rgba(0,0,0,0.1);
+        }
+        
+        .pointer {
+            width: 0; 
+            height: 0; 
+            border-left: 18px solid transparent;
+            border-right: 18px solid transparent; 
+            border-top: 36px solid var(--danger-color);
+            position: absolute; 
+            top: -10px; 
+            left: 50%;
+            transform: translateX(-50%); 
+            z-index: 10;
+        }
+
+        .quiz-container {
+            text-align: center;
+        }
+        
+        .quiz-question {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .quiz-option {
+            padding: 15px;
+            background: var(--card-bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .quiz-option:hover {
+            background: rgba(255, 255, 255, 0.7);
+        }
+        
+        .quiz-option.correct {
+            background: var(--secondary-color);
+            color: white;
+        }
+        
+        .quiz-option.wrong {
+            background: var(--danger-color);
+            color: white;
+        }
+        
+        #quiz-result {
+            margin-top: 20px;
+            font-weight: 600;
+            font-size: 1.1em;
+        }
+        
+        #next-question-btn {
+            margin-top: 20px;
+        }
+
+        #ad-popup {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: rgba(0,0,0,0.5); 
+            z-index: 2000;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px);
+        }
+        
+        #ad-popup-box {
+            background: var(--card-bg-color); 
+            padding: 20px; 
+            border-radius: 20px; 
+            text-align: center;
+            border: 1.5px solid var(--border-color);
+        }
+        
+        #ad-popup-box #ad-placeholder { 
+            min-width: 300px; 
+            min-height: 250px; 
+            background: #eee; 
+            border-radius: 12px; 
+        }
+        
+        #close-ad-btn {
+            margin-top: 15px; 
+            padding: 10px 20px; 
+            background: var(--danger-color);
+            color: var(--light-text-color); 
+            border: none; 
+            border-radius: 10px; 
+            font-weight: 600;
+        }
+
+        #tap-card-popup {
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: rgba(0,0,0,0.5); 
+            z-index: 2000;
+            display: flex; 
+            justify-content: center; 
+            align-items: center;
+            backdrop-filter: blur(8px); 
+            -webkit-backdrop-filter: blur(8px);
+        }
+        
+        #tap-card-box {
+            background: var(--card-bg-color); 
+            padding: 20px; 
+            border-radius: 20px; 
+            text-align: center;
+            border: 1.5px solid var(--border-color);
+            width: 90%;
+            max-width: 400px;
+        }
+        
+        #tap-card-iframe {
+            width: 100%;
+            height: 300px;
+            border: none;
+            border-radius: 12px;
+            margin-bottom: 15px;
+        }
+        
+        #close-tap-card-btn {
+            margin-top: 15px; 
+            padding: 10px 20px; 
+            background: var(--danger-color);
+            color: var(--light-text-color); 
+            border: none; 
+            border-radius: 10px; 
+            font-weight: 600;
+        }
+
+        #toast {
+            position: fixed; 
+            bottom: 100px; 
+            left: 50%; 
+            transform: translateX(-50%);
+            background-color: rgba(20, 20, 20, 0.85);
+            color: white; 
+            padding: 12px 25px;
+            border-radius: 50px; 
+            font-size: 0.9em; 
+            z-index: 3000;
+            visibility: hidden; 
+            opacity: 0;
+            transition: opacity 0.5s, visibility 0.5s;
+            backdrop-filter: blur(5px);
+        }
+        
+        #toast.show { 
+            visibility: visible; 
+            opacity: 1; 
+        }
+
+        .loading {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary-color);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div id="toast"></div>
+
+    <div id="onboarding-screen">
+        <div id="onboarding-box">
+            <h2>স্বাগতম!</h2>
+            <p>শুরু করার জন্য আপনার তথ্য দিন।</p>
+            <input type="text" id="userName" placeholder="আপনার নাম দিন" required>
+            <input type="text" id="userUpi" placeholder="আপনার বিকাশ নম্বর দিন" required>
+            <button id="saveUser">শুরু করুন</button>
+        </div>
+    </div>
+
+    <div id="ad-popup" class="hidden">
+        <div id="ad-popup-box">
+            <h4>বিজ্ঞাপন</h4>
+            <div id="ad-placeholder">
+                <!-- Ad content will be loaded here -->
+            </div>
+            <button id="close-ad-btn">বন্ধ করুন</button>
+        </div>
+    </div>
+    
+    <div id="tap-card-popup" class="hidden">
+        <div id="tap-card-box">
+            <h4>ট্যাপ কার্ড</h4>
+            <iframe id="tap-card-iframe" src="about:blank"></iframe>
+            <button id="close-tap-card-btn">বন্ধ করুন</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div id="home-page" class="page">
+            <div class="header">
+                <p>আপনার ব্যালেন্স</p>
+                <div class="wallet-balance">
+                    <span id="coin-balance">0</span> 🪙
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>ট্যাপ করে আয়</h3>
+                <p>প্রতিটি ট্যাপে একটি কার্ড ওপেন হবে এবং অটোপ্লে হবে!</p>
+                <button id="tap-btn" class="btn btn-primary">ট্যাপ করুন (<span id="tap-count">0</span>/5)</button>
+            </div>
+            
+            <div class="card">
+                <h3>ভিডিও দেখে আয়</h3>
+                <p>একটি ছোট বিজ্ঞাপন দেখে কয়েন জিতুন।</p>
+                <button id="watch-ad-btn" class="btn btn-secondary">বিজ্ঞাপন দেখুন</button>
+            </div>
+
+            <div class="card">
+                <h3>স্পিন হুইল</h3>
+                <div class="wheel-container">
+                    <div class="pointer"></div>
+                    <div id="wheel"></div>
+                </div>
+                <button id="spin-btn" class="btn btn-info">এখনই স্পিন করুন!</button>
+            </div>
+        </div>
+
+        <div id="game-page" class="page hidden">
+            <div class="card">
+                <h3>কুইজ গেম</h3>
+                <div class="quiz-container">
+                    <div class="quiz-question" id="quiz-question">প্রশ্ন লোড হচ্ছে...</div>
+                    <div class="quiz-options" id="quiz-options">
+                        <!-- Options will be populated by JavaScript -->
+                    </div>
+                    <div id="quiz-result"></div>
+                    <button id="next-question-btn" class="btn btn-primary hidden">পরবর্তী প্রশ্ন</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="wallet-page" class="page hidden">
+            <div class="card">
+                <h3>কয়েন উত্তোলন</h3>
+                <input type="number" id="withdraw-coins" placeholder="উত্তোলনের জন্য কয়েন লিখুন">
+                <p>মূল্য: ৳<span id="withdraw-value">0.00</span></p>
+                <p class="min-withdrawal-note" style="color: var(--danger-color); font-size: 0.9em;">সর্বনিম্ন উত্তোলন: ৳50</p>
+                <button id="withdraw-btn" class="btn btn-primary">উত্তোলনের অনুরোধ পাঠান</button>
+            </div>
+            <div class="card">
+                <h3>টাকা জমা দিন</h3>
+                <p>এই নম্বরে টাকা পাঠান: <b id="admin-upi">01xxxxxxxxx (বিকাশ/নগদ)</b></p>
+                <p>টাকা পাঠানোর পর, পেমেন্টের স্ক্রিনশট আপলোড করুন।</p>
+                <input type="file" id="payment-screenshot" accept="image/*">
+                <input type="number" id="deposit-amount" placeholder="কত টাকা জমা দিয়েছেন (৳)">
+                <button id="deposit-btn" class="btn btn-secondary">রিভিউয়ের জন্য জমা দিন</button>
+            </div>
+        </div>
+        
+        <div id="promo-page" class="page hidden">
+            <div class="card">
+                <h3>মিনি গেম প্রোমোশন</h3>
+                <div id="promo-games-list" class="loading">
+                    <div class="spinner"></div>
+                    <p>লোড হচ্ছে...</p>
+                </div>
+            </div>
+            <div class="card">
+                <h3>ফলো করে আয়</h3>
+                <div id="social-tasks-list" class="loading">
+                    <div class="spinner"></div>
+                    <p>লোড হচ্ছে...</p>
+                </div>
+            </div>
+        </div>
+
+        <div id="profile-page" class="page hidden">
+            <div class="card">
+                <h3>আমার প্রোফাইল</h3>
+                <label>নাম:</label>
+                <input type="text" id="profileName">
+                <label>বিকাশ নম্বর:</label>
+                <input type="text" id="profileUpi">
+                <button id="update-profile-btn" class="btn btn-primary">প্রোফাইল আপডেট করুন</button>
+            </div>
+             <div class="card">
+                <h3>লেনদেনের ইতিহাস</h3>
+                <h4>উত্তোলন</h4>
+                <ul id="withdrawal-history"></ul>
+                <h4>জমা</h4>
+                <ul id="deposit-history"></ul>
+            </div>
+            <div class="card">
+                <h3>রেফার করে আয়</h3>
+                <p>আপনার রেফারেল কোড:</p>
+                <b id="referral-code" style="font-size: 1.2em; color: var(--secondary-color);"></b>
+                <button id="share-whatsapp-btn" class="btn btn-info">WhatsApp-এ শেয়ার করুন</button>
+            </div>
+        </div>
+    </div>
+    
+    <nav>
+        <button data-page="home-page" class="active">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+            </svg>
+            হোম
+        </button>
+        <button data-page="game-page">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="6" y1="12" x2="10" y2="12"></line>
+                <line x1="8" y1="10" x2="8" y2="14"></line>
+                <line x1="15" y1="13" x2="15" y2="11"></line>
+                <line x1="18" y1="15" x2="18" y2="9"></line>
+                <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+            </svg>
+            গেম
+        </button>
+        <button data-page="wallet-page">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"></path>
+                <path d="M3 5v14a2 2 0 0 0 2 2h16v-5"></path>
+                <path d="M18 12a2 2 0 0 0 0 4h4v-4Z"></path>
+            </svg>
+            ওয়ালেট
+        </button>
+        <button data-page="promo-page">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            প্রোমো
+        </button>
+        <button data-page="profile-page">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            প্রোফাইল
+        </button>
+    </nav>
+    
+    <!-- Firebase scripts at the end for better performance -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    
+    <script>
+        // Firebase Configuration
+        const firebaseConfig = {
+  apiKey: "AIzaSyCxOxWS0U12rDDILeNklJ5ybhTCozSGpw0",
+  authDomain: "earn-money-e8092.firebaseapp.com",
+  databaseURL: "https://earn-money-e8092-default-rtdb.firebaseio.com",
+  projectId: "earn-money-e8092",
+  storageBucket: "earn-money-e8092.firebasestorage.app",
+  messagingSenderId: "829995766944",
+  appId: "1:829995766944:web:8fac1890685bd26a1ea5c5",
+  measurementId: "G-7XFZK9NRM6"
+};
+        
+        // App State
+        let userData = {};
+        let userId = '';
+        let tapCount = 0;
+        let appSettings = {};
+        let tapSettings = {};
+        let adSettings = {};
+        let spinSettings = {};
+        let currentQuestionIndex = 0;
+        let quizQuestions = [];
+        let isFirebaseInitialized = false;
+
+        // Quiz Data
+        const quizData = [
+            {
+                question: "বাংলাদেশের জাতীয় ফুল কোনটি?",
+                options: ["গোলাপ", "শাপলা", "গাঁদা", "কমল"],
+                correctAnswer: 1
+            },
+            {
+                question: "বাংলাদেশের স্বাধীনতা দিবস কবে?",
+                options: ["২৬ মার্চ", "১৬ ডিসেম্বর", "২১ ফেব্রুয়ারি", "১৫ আগস্ট"],
+                correctAnswer: 0
+            },
+            {
+                question: "বাংলাদেশের জাতীয় পাখি কোনটি?",
+                options: ["ময়না", "কাক", "দোয়েল", "চিল"],
+                correctAnswer: 2
+            },
+            {
+                question: "বাংলাদেশের রাজধানীর নাম কী?",
+                options: ["চট্টগ্রাম", "ঢাকা", "খুলনা", "রাজশাহী"],
+                correctAnswer: 1
+            },
+            {
+                question: "বাংলাদেশের জাতীয় ফল কোনটি?",
+                options: ["আম", "কাঁঠাল", "লিচু", "কলা"],
+                correctAnswer: 1
+            }
+        ];
+
+        // Toast Notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => { 
+                toast.classList.remove('show'); 
+            }, 3000);
+        }
+
+        // Ad Logic
+        const adPopup = document.getElementById('ad-popup');
+        let adRewardCallback = null;
+        
+        function showAd(rewardCallback) {
+            adPopup.classList.remove('hidden');
+            adRewardCallback = rewardCallback;
+        }
+        
+        document.getElementById('close-ad-btn').addEventListener('click', () => {
+            adPopup.classList.add('hidden');
+            if (adRewardCallback) {
+                adRewardCallback();
+                adRewardCallback = null;
+            }
+        });
+
+        // Tap Card Logic
+        const tapCardPopup = document.getElementById('tap-card-popup');
+        document.getElementById('close-tap-card-btn').addEventListener('click', () => {
+            tapCardPopup.classList.add('hidden');
+        });
+
+        // Initialize Firebase
+        function initializeFirebase() {
+            try {
+                if (typeof firebase !== 'undefined') {
+                    firebase.initializeApp(firebaseConfig);
+                    isFirebaseInitialized = true;
+                    console.log("Firebase initialized successfully");
+                    return true;
+                } else {
+                    console.error("Firebase SDK not loaded");
+                    return false;
+                }
+            } catch (error) {
+                console.error("Firebase initialization error:", error);
+                return false;
+            }
+        }
+
+        // App Initialization
+        function initializeApp() {
+            userId = localStorage.getItem('earningAppUserId');
+            
+            if (userId) {
+                document.getElementById('onboarding-screen').classList.add('hidden');
+                
+                // Initialize Firebase first
+                if (initializeFirebase()) {
+                    // Load essential features first
+                    loadEssentialFeatures();
+                    
+                    // Load other features gradually
+                    setTimeout(loadSecondaryFeatures, 1000);
+                    setTimeout(loadTertiaryFeatures, 2000);
+                } else {
+                    showToast("অ্যাপটি অফলাইন মোডে চলছে। ইন্টারনেট সংযোগ পরীক্ষা করুন।");
+                    initializeOfflineMode();
+                }
+            }
+        }
+
+        // Load essential features first
+        function loadEssentialFeatures() {
+            listenToUserData();
+            listenToAppSettings();
+            initializeQuiz();
+        }
+
+        // Load secondary features
+        function loadSecondaryFeatures() {
+            listenToTapSettings();
+            listenToAdSettings();
+            listenToSpinSettings();
+        }
+
+        // Load tertiary features
+        function loadTertiaryFeatures() {
+            loadTransactionHistory();
+            loadPromotions();
+            loadSocialTasks();
+        }
+
+        // Offline mode initialization
+        function initializeOfflineMode() {
+            // Load user data from localStorage
+            const savedUserData = localStorage.getItem('userData');
+            if (savedUserData) {
+                userData = JSON.parse(savedUserData);
+                document.getElementById('coin-balance').innerText = Math.floor(userData.coins || 0);
+                document.getElementById('profileName').value = userData.name || '';
+                document.getElementById('profileUpi').value = userData.upi || '';
+                document.getElementById('referral-code').innerText = userData.referralCode || 'N/A';
+            }
+            
+            // Set default settings
+            appSettings = {
+                paymentNumber: '01xxxxxxxxx (বিকাশ)',
+                conversionRate: 100,
+                minWithdrawal: 50
+            };
+            
+            document.getElementById('admin-upi').innerText = appSettings.paymentNumber;
+        }
+
+        // Firebase Listeners
+        function listenToUserData() {
+            if (!isFirebaseInitialized || !userId) return;
+            
+            try {
+                firebase.database().ref('users/' + userId).on('value', (snapshot) => {
+                    userData = snapshot.val();
+                    if (userData) {
+                        document.getElementById('coin-balance').innerText = Math.floor(userData.coins || 0);
+                        document.getElementById('profileName').value = userData.name;
+                        document.getElementById('profileUpi').value = userData.upi;
+                        document.getElementById('referral-code').innerText = userData.referralCode;
+                        
+                        // Save to localStorage for offline use
+                        localStorage.setItem('userData', JSON.stringify(userData));
+                    }
+                });
+            } catch (error) {
+                console.error("Error listening to user data:", error);
+            }
+        }
+
+        function listenToAppSettings() {
+            if (!isFirebaseInitialized) return;
+            
+            try {
+                firebase.database().ref('settings').on('value', snapshot => {
+                    appSettings = snapshot.val() || {};
+                    document.getElementById('admin-upi').innerText = appSettings.paymentNumber || '01xxxxxxxxx (বিকাশ)';
+                    
+                    document.getElementById('withdraw-coins').addEventListener('input', e => {
+                       const value = e.target.value / (appSettings.conversionRate || 100);
+                       document.getElementById('withdraw-value').innerText = value.toFixed(2);
+                    });
+                });
+            } catch (error) {
+                console.error("Error listening to app settings:", error);
+            }
+        }
+        
+        function listenToTapSettings() {
+            if (!isFirebaseInitialized) return;
+            
+            try {
+                firebase.database().ref('tapSettings').on('value', snapshot => {
+                    tapSettings = snapshot.val() || {};
+                });
+            } catch (error) {
+                console.error("Error listening to tap settings:", error);
+            }
+        }
+        
+        function listenToAdSettings() {
+            if (!isFirebaseInitialized) return;
+            
+            try {
+                firebase.database().ref('adSettings').on('value', snapshot => {
+                    adSettings = snapshot.val() || {};
+                });
+            } catch (error) {
+                console.error("Error listening to ad settings:", error);
+            }
+        }
+        
+        function listenToSpinSettings() {
+            if (!isFirebaseInitialized) return;
+            
+            try {
+                firebase.database().ref('spinSettings').on('value', snapshot => {
+                    spinSettings = snapshot.val() || {};
+                });
+            } catch (error) {
+                console.error("Error listening to spin settings:", error);
+            }
+        }
+
+        function updateCoins(amount) {
+            if (!isFirebaseInitialized || !userId) {
+                // Offline mode - update localStorage
+                userData.coins = (userData.coins || 0) + amount;
+                document.getElementById('coin-balance').innerText = Math.floor(userData.coins);
+                localStorage.setItem('userData', JSON.stringify(userData));
+                return Promise.resolve();
+            }
+            
+            const userCoinsRef = firebase.database().ref('users/' + userId + '/coins');
+            return userCoinsRef.transaction(currentCoins => (currentCoins || 0) + amount);
+        }
+
+        // Earning Methods
+        document.getElementById('tap-btn').addEventListener('click', () => {
+            tapCount++;
+            document.getElementById('tap-count').innerText = tapCount;
+            
+            // Show tap card popup
+            tapCardPopup.classList.remove('hidden');
+            
+            if (tapCount >= 5) {
+                const coinsPerTap = tapSettings.coinsPerTap || 1;
+                updateCoins(coinsPerTap);
+                tapCount = 0;
+                document.getElementById('tap-count').innerText = tapCount;
+                
+                // Open tap link if available
+                if (tapSettings.tapLink) {
+                    window.open(tapSettings.tapLink, '_blank');
+                }
+            }
+        });
+
+        document.getElementById('watch-ad-btn').addEventListener('click', () => {
+            showAd(() => {
+                const reward = adSettings.adReward || 5;
+                updateCoins(reward).then(() => {
+                    showToast(`আপনি ${reward} কয়েন জিতেছেন!`);
+                    
+                    // Open ad link if available
+                    if (adSettings.adLink) {
+                        window.open(adSettings.adLink, '_blank');
+                    }
+                }).catch(err => showToast('কয়েন যোগ করা যায়নি। আবার চেষ্টা করুন।'));
+            });
+        });
+
+        document.getElementById('spin-btn').addEventListener('click', (e) => {
+            const button = e.target;
+            if (button.disabled) return;
+            button.disabled = true;
+
+            const wheel = document.getElementById('wheel');
+            const degrees = Math.floor(Math.random() * 3000) + 1800;
+            wheel.style.transform = `rotate(${degrees}deg)`;
+            
+            setTimeout(() => {
+                const maxReward = appSettings.spinMaxReward || 10;
+                const randomCoins = Math.ceil(Math.random() * maxReward);
+                updateCoins(randomCoins).then(() => {
+                    showToast(`আপনি স্পিন করে ${randomCoins} কয়েন জিতেছেন!`);
+                    
+                    // Open spin link if available
+                    if (spinSettings.spinLink) {
+                        window.open(spinSettings.spinLink, '_blank');
+                    }
+                    
+                    button.disabled = false;
+                }).catch(err => {
+                    showToast('পুরস্কার সংগ্রহ করা যায়নি। আবার চেষ্টা করুন।');
+                    button.disabled = false;
+                });
+            }, 4500);
+        });
+
+        // Quiz Game
+        function initializeQuiz() {
+            quizQuestions = [...quizData];
+            loadNextQuestion();
+        }
+
+        function loadNextQuestion() {
+            const questionElement = document.getElementById('quiz-question');
+            const optionsElement = document.getElementById('quiz-options');
+            const resultElement = document.getElementById('quiz-result');
+            const nextButton = document.getElementById('next-question-btn');
+            
+            // Reset UI
+            resultElement.textContent = '';
+            nextButton.classList.add('hidden');
+            optionsElement.innerHTML = '';
+            
+            if (currentQuestionIndex >= quizQuestions.length) {
+                currentQuestionIndex = 0;
+            }
+            
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+            questionElement.textContent = currentQuestion.question;
+            
+            currentQuestion.options.forEach((option, index) => {
+                const optionElement = document.createElement('div');
+                optionElement.className = 'quiz-option';
+                optionElement.textContent = option;
+                optionElement.dataset.index = index;
+                optionsElement.appendChild(optionElement);
+            });
+        }
+
+        // Event delegation for quiz options
+        document.getElementById('quiz-options').addEventListener('click', function(e) {
+            if (e.target.classList.contains('quiz-option')) {
+                handleAnswerSelection(e);
+            }
+        });
+
+        function handleAnswerSelection(event) {
+            const selectedOption = event.target;
+            const selectedIndex = parseInt(selectedOption.dataset.index);
+            const currentQuestion = quizQuestions[currentQuestionIndex];
+            const options = document.querySelectorAll('.quiz-option');
+            const resultElement = document.getElementById('quiz-result');
+            const nextButton = document.getElementById('next-question-btn');
+            
+            // Disable all options
+            options.forEach(option => {
+                option.style.pointerEvents = 'none';
+            });
+            
+            if (selectedIndex === currentQuestion.correctAnswer) {
+                selectedOption.classList.add('correct');
+                resultElement.textContent = 'সঠিক উত্তর! আপনি 10 কয়েন জিতেছেন!';
+                resultElement.style.color = 'var(--secondary-color)';
+                
+                // Award coins
+                updateCoins(10).then(() => {
+                    showToast('আপনি 10 কয়েন জিতেছেন!');
+                });
+            } else {
+                selectedOption.classList.add('wrong');
+                options[currentQuestion.correctAnswer].classList.add('correct');
+                resultElement.textContent = 'ভুল উত্তর! সঠিক উত্তরটি হাইলাইট করা হয়েছে।';
+                resultElement.style.color = 'var(--danger-color)';
+            }
+            
+            nextButton.classList.remove('hidden');
+        }
+
+        document.getElementById('next-question-btn').addEventListener('click', () => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex >= quizQuestions.length) {
+                currentQuestionIndex = 0;
+            }
+            loadNextQuestion();
+        });
+        
+        // Financial Transactions
+        document.getElementById('withdraw-btn').addEventListener('click', () => {
+            const withdrawInput = document.getElementById('withdraw-coins');
+            const coinsToWithdraw = parseInt(withdrawInput.value);
+            const minWithdrawal = (appSettings.minWithdrawal || 50) * (appSettings.conversionRate || 100);
+            
+            if (coinsToWithdraw < minWithdrawal) {
+                showToast(`সর্বনিম্ন উত্তোলন: ${appSettings.minWithdrawal || 50} টাকা (${minWithdrawal} কয়েন)`);
+                return;
+            }
+            
+            if (coinsToWithdraw > 0 && coinsToWithdraw <= (userData.coins || 0)) {
+                updateCoins(-coinsToWithdraw).then(() => {
+                    if (isFirebaseInitialized) {
+                        const withdrawalRequest = {
+                            userId, 
+                            name: userData.name, 
+                            upi: userData.upi, 
+                            coins: coinsToWithdraw,
+                            amount: coinsToWithdraw / (appSettings.conversionRate || 100),
+                            status: 'pending', 
+                            timestamp: new Date().toISOString()
+                        };
+                        firebase.database().ref('withdrawals').push(withdrawalRequest).then(() => {
+                            showToast('আপনার উত্তোলনের অনুরোধ জমা হয়েছে!');
+                            withdrawInput.value = '';
+                            document.getElementById('withdraw-value').innerText = '0.00';
+                        });
+                    } else {
+                        showToast('অফলাইন মোডে উত্তোলন অনুরোধ জমা হবে যখন ইন্টারনেট সংযোগ পাওয়া যাবে।');
+                        withdrawInput.value = '';
+                        document.getElementById('withdraw-value').innerText = '0.00';
+                    }
+                }).catch(err => showToast('উত্তোলন ব্যর্থ হয়েছে। আপনার কয়েন ফেরত দেওয়া হয়েছে।'));
+            } else { 
+                showToast('আপনার কয়েনের পরিমাণ সঠিক নয়।'); 
+            }
+        });
+
+        document.getElementById('deposit-btn').addEventListener('click', () => {
+            const amountInput = document.getElementById('deposit-amount');
+            const fileInput = document.getElementById('payment-screenshot');
+            const amount = amountInput.value;
+            const file = fileInput.files[0];
+
+            if (!amount || !file) { 
+                showToast("টাকার পরিমাণ এবং স্ক্রিনশট দিন।"); 
+                return; 
+            }
+            
+            if (isFirebaseInitialized) {
+                const depositRequest = {
+                    userId, 
+                    name: userData.name, 
+                    amount: parseFloat(amount),
+                    screenshot_placeholder: file.name, 
+                    status: 'pending', 
+                    timestamp: new Date().toISOString()
+                };
+                firebase.database().ref('deposits').push(depositRequest).then(() => {
+                    showToast('আপনার জমার অনুরোধ রিভিউয়ের জন্য জমা হয়েছে।');
+                    amountInput.value = '';
+                    fileInput.value = '';
+                }).catch(err => showToast('জমার অনুরোধ ব্যর্থ হয়েছে।'));
+            } else {
+                showToast('অফলাইন মোডে জমার অনুরোধ জমা হবে যখন ইন্টারনেট সংযোগ পাওয়া যাবে।');
+                amountInput.value = '';
+                fileInput.value = '';
+            }
+        });
+
+        function loadTransactionHistory() {
+            if (!isFirebaseInitialized || !userId) return;
+            
+            firebase.database().ref('withdrawals').orderByChild('userId').equalTo(userId).on('value', s => {
+                const list = document.getElementById('withdrawal-history');
+                list.innerHTML = '';
+                s.forEach(c => {
+                    const d = c.val();
+                    list.innerHTML = `<li>${d.coins} কয়েন (৳${d.amount.toFixed(2)}) - ${d.status}</li>` + list.innerHTML;
+                });
+            });
+            
+            firebase.database().ref('deposits').orderByChild('userId').equalTo(userId).on('value', s => {
+                const list = document.getElementById('deposit-history');
+                list.innerHTML = '';
+                s.forEach(c => {
+                    const d = c.val();
+                    list.innerHTML = `<li>৳${d.amount} - ${d.status}</li>` + list.innerHTML;
+                });
+            });
+        }
+        
+        // Profile and Other Features
+        document.getElementById('update-profile-btn').addEventListener('click', () => {
+            const newName = document.getElementById('profileName').value;
+            const newUpi = document.getElementById('profileUpi').value;
+            if (newName && newUpi) {
+                if (isFirebaseInitialized) {
+                    firebase.database().ref('users/' + userId).update({ name: newName, upi: newUpi })
+                    .then(() => showToast('প্রোফাইল আপডেট হয়েছে!'))
+                    .catch(() => showToast('প্রোফাইল আপডেট করা যায়নি।'));
+                } else {
+                    // Update offline
+                    userData.name = newName;
+                    userData.upi = newUpi;
+                    localStorage.setItem('userData', JSON.stringify(userData));
+                    showToast('প্রোফাইল আপডেট হয়েছে! (অফলাইন)');
+                }
+            }
+        });
+        
+        document.getElementById('share-whatsapp-btn').addEventListener('click', () => {
+            const text = `এই অসাধারণ অ্যাপে যোগ দিন! আমার কোড ব্যবহার করুন: ${userData.referralCode}. লিঙ্ক: ${window.location.href}`;
+            window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+        });
+
+        function loadPromotions() {
+            if (!isFirebaseInitialized) {
+                document.getElementById('promo-games-list').innerHTML = '<p>ইন্টারনেট সংযোগ নেই। পরে আবার চেষ্টা করুন।</p>';
+                return;
+            }
+            
+            firebase.database().ref('promoGames').on('value', s => {
+                const list = document.getElementById('promo-games-list');
+                list.innerHTML = '';
+                s.forEach(c => {
+                    const game = c.val();
+                    list.innerHTML += `<hr><p><b>${game.name}</b> (+${game.reward} 🪙, ${game.playTime} মিনিট খেলার জন্য)</p><a href="${game.url}" target="_blank"><button class="btn btn-info">ডাউনলোড করুন</button></a>`;
+                });
+            });
+        }
+
+        function loadSocialTasks() {
+            if (!isFirebaseInitialized) {
+                document.getElementById('social-tasks-list').innerHTML = '<p>ইন্টারনেট সংযোগ নেই। পরে আবার চেষ্টা করুন।</p>';
+                return;
+            }
+            
+            firebase.database().ref('socialTasks').on('value', s => {
+                const list = document.getElementById('social-tasks-list');
+                list.innerHTML = '';
+                s.forEach(c => {
+                    const task = c.val();
+                    const taskId = c.key;
+                    const isCompleted = localStorage.getItem('task_' + taskId);
+                    list.innerHTML += `<hr><p><b>${task.name}-এ ফলো করুন</b> (+${task.reward} 🪙)</p><button class="btn btn-secondary social-task-btn" data-task-id="${taskId}" data-url="${task.url}" data-reward="${task.reward}" ${isCompleted ? 'disabled' : ''}>${isCompleted ? 'সম্পন্ন' : 'যান'}</button>`;
+                });
+            });
+        }
+
+        // Event delegation for social tasks
+        document.getElementById('social-tasks-list').addEventListener('click', function(e) {
+            if (e.target.classList.contains('social-task-btn')) {
+                completeSocialTask(e);
+            }
+        });
+
+        function completeSocialTask(e) {
+            const { taskId, url, reward } = e.target.dataset;
+            localStorage.setItem('task_' + taskId, 'true');
+            updateCoins(parseInt(reward)).then(() => {
+                e.target.disabled = true;
+                e.target.textContent = 'সম্পন্ন';
+                window.open(url, '_blank');
+            }).catch(err => {
+                localStorage.removeItem('task_' + taskId);
+                showToast('পুরস্কার সংগ্রহ করা যায়নি। আবার চেষ্টা করুন।');
+            });
+        }
+
+        // Navigation
+        const pages = document.querySelectorAll('.page');
+        const navButtons = document.querySelectorAll('nav button');
+        
+        // Event delegation for navigation
+        document.querySelector('nav').addEventListener('click', function(e) {
+            if (e.target.closest('button')) {
+                const button = e.target.closest('button');
+                const pageId = button.dataset.page;
+                
+                if (pageId) {
+                    pages.forEach(p => p.classList.add('hidden'));
+                    document.getElementById(pageId).classList.remove('hidden');
+                    navButtons.forEach(b => b.classList.remove('active'));
+                    button.classList.add('active');
+                }
+            }
+        });
+
+        // Onboarding
+        document.getElementById('saveUser').addEventListener('click', () => {
+            const name = document.getElementById('userName').value.trim();
+            const upi = document.getElementById('userUpi').value.trim();
+
+            if (name && upi) {
+                userId = 'user_' + Date.now();
+                localStorage.setItem('earningAppUserId', userId);
+                
+                userData = {
+                    name: name, 
+                    upi: upi, 
+                    coins: 0,
+                    referralCode: Math.random().toString(36).substring(2, 8).toUpperCase(),
+                    createdAt: new Date().toISOString()
+                };
+
+                // Save to localStorage immediately
+                localStorage.setItem('userData', JSON.stringify(userData));
+                
+                if (isFirebaseInitialized) {
+                    firebase.database().ref('users/' + userId).set(userData).then(() => {
+                        document.getElementById('onboarding-screen').classList.add('hidden');
+                        initializeApp();
+                    }).catch(error => {
+                        console.error("Firebase write failed: ", error);
+                        showToast('তথ্য সেভ করা যায়নি। অফলাইন মোডে চলছে।');
+                        document.getElementById('onboarding-screen').classList.add('hidden');
+                        initializeApp();
+                    });
+                } else {
+                    document.getElementById('onboarding-screen').classList.add('hidden');
+                    initializeApp();
+                }
+            } else { 
+                showToast('অনুগ্রহ করে সব তথ্য পূরণ করুন।'); 
+            }
+        });
+
+        // Global Error Handling
+        window.addEventListener('error', function(e) {
+            console.error('Global error:', e.error);
+            showToast('অ্যাপটিতে সাময়িক সমস্যা হচ্ছে। পুনরায় চেষ্টা করুন।');
+        });
+
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('Unhandled promise rejection:', e.reason);
+            e.preventDefault();
+        });
+
+        // Start the app when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize app with a small delay to ensure DOM is ready
+            setTimeout(initializeApp, 100);
+        });
+    </script>
+</body>
+</html>
