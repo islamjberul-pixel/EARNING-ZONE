@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COIN আয় করুন - বিজ্ঞাপন দেখুন</title>
+    
+    <!-- Monetag Rewarded SDK -->
+    <script src='//libtl.com/sdk.js' data-zone='11025209' data-sdk='show_11025209'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-color: #4a6bff;
+            --secondary-color: #ff7d4a;
+            --success-color: #28a745;
+            --danger-color: #dc3545;
+            --warning-color: #ffc107;
+            --card-bg: #16213e;
+            --text-color: #e6e6e6;
+            --text-muted: #adb5bd;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: var(--text-color);
+            min-height: 100vh;
+            padding: 15px;
+            padding-bottom: 70px;
+        }
+        .container {
+            max-width: 500px; margin: 0 auto; background: rgba(22, 33, 62, 0.9);
+            border-radius: 15px; padding-bottom: 20px;
+        }
+        .header {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white; padding: 20px; text-align: center;
+        }
+        .user-card,.stat-card,.progress-container,.referral-section,.rate-info,.withdraw-section,.ad-status {
+            background-color: var(--card-bg); margin: 15px; padding: 15px; border-radius: 10px;
+        }
+        .user-card { display: flex; align-items: center; }
+        .user-avatar {
+            width: 50px; height: 50px; background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: bold; font-size: 20px; color: white; margin-right: 15px;
+        }
+        .stats-container { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+        .stat-card { text-align: center; }
+        .stat-card h3 { font-size: 12px; color: var(--text-muted); margin-bottom: 10px; }
+        .stat-card p { font-size: 24px; font-weight: 700; color: var(--primary-color); }
+        .progress-container { background: linear-gradient(to right, #0f0c29, #302b63); }
+        .progress-bar {
+            height: 10px; background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px; overflow: hidden; margin-bottom: 10px;
+        }
+        .progress-fill {
+            height: 100%; background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            width: 0%; transition: width 0.5s ease;
+        }
+        .action-buttons { display: grid; grid-template-columns: 1fr; gap: 10px; margin: 15px; }
+        .btn {
+            padding: 15px; border: none; border-radius: 10px; font-weight: 600; font-size: 16px;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
+        }
+        .btn-primary { background: linear-gradient(to right, var(--primary-color), #6a11cb); color: white; }
+        .btn-secondary { background: linear-gradient(to right, #2c3e50, #4ca1af); color: var(--text-color); }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; margin-bottom: 8px; font-size: 14px; color: var(--text-muted); }
+        .form-group input, .form-group select {
+            width: 100%; padding: 12px 15px; background-color: rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 8px;
+            color: var(--text-color); font-size: 14px; outline: none;
+        }
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; right: 0; background: var(--card-bg);
+            display: flex; justify-content: space-around; padding: 10px 0;
+        }
+        .nav-item {
+            display: flex; flex-direction: column; align-items: center;
+            color: var(--text-muted); text-decoration: none; font-size: 12px;
+            padding: 5px 10px; border-radius: 10px; width: 33%;
+        }
+        .nav-item.active { color: var(--primary-color); background: rgba(74, 107, 255, 0.2); }
+        .nav-item i { font-size: 20px; margin-bottom: 5px; }
+        .page-section { display: none; }
+        .page-section.active { display: block; }
+        .notification {
+            position: fixed; top: 20px; right: 20px; padding: 15px; border-radius: 8px;
+            background: var(--card-bg); transform: translateX(150%); transition: transform 0.5s ease;
+            z-index: 1000;
+        }
+        .notification.show { transform: translateX(0); }
+        .notification.success { border-left: 4px solid var(--success-color); }
+        .notification.error { border-left: 4px solid var(--danger-color); }
+        .notification.warning { border-left: 4px solid var(--warning-color); }
+        .withdraw-history {
+            margin-top: 20px;
+        }
+        .withdraw-item {
+            background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px; margin-bottom: 10px;
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        .withdraw-status {
+            padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600;
+        }
+        .status-pending { background: var(--warning-color); color: #000; }
+        .status-approved { background: var(--success-color); color: white; }
+        .status-rejected { background: var(--danger-color); color: white; }
+        .conversion-note {
+            font-size: 12px; color: var(--text-muted); text-align: center; margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>COIN আয় করুন</h1>
+            <p>বিজ্ঞাপন দেখে COIN আয় করুন</p>
+        </div>
+
+        <div class="page-section active" id="home-page">
+            <div class="user-card">
+                <div class="user-avatar" id="user-avatar">U</div>
+                <div class="user-info">
+                    <h3 id="user-name">ব্যবহারকারী</h3>
+                    <p>আইডি: <span id="user-id">12345</span></p>
+                </div>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-card">
+                    <h3>দেখা বিজ্ঞাপন</h3>
+                    <p id="watched-ads">0</p>
+                </div>
+                <div class="stat-card">
+                    <h3>আয়কৃত COIN</h3>
+                    <p id="earned-money">0.00 <small>COIN</small></p>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-header" style="display:flex; justify-content:space-between; margin-bottom:15px;">
+                    <h3>অগ্রগতি</h3>
+                    <span id="ads-progress">0/20</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+
+            <div class="ad-status" id="ad-status">
+                <i class="fas fa-spinner fa-spin"></i> লোড হচ্ছে...
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-primary" id="watch-ad-btn" onclick="watchAd()">
+                    <i class="fas fa-play"></i> বিজ্ঞাপন দেখুন (<span id="rate-per-ad">2</span> COIN)
+                </button>
+                <button class="btn btn-secondary" onclick="showWithdrawForm()">
+                    <i class="fas fa-wallet"></i> COIN উত্তোলন
+                </button>
+            </div>
+
+            <div class="referral-section">
+                <h3 style="margin-bottom:15px;"><i class="fas fa-users"></i> বন্ধুকে আমন্ত্রণ করুন</h3>
+                <div style="display:flex; justify-content:space-between; background:rgba(0,0,0,0.2); padding:10px; border-radius:8px;">
+                    <div>আমন্ত্রিত: <strong id="referral-count">0</strong></div>
+                    <div>আয়: <strong id="referral-earnings">0.00</strong> COIN</div>
+                </div>
+                <div style="display:flex; margin-top:15px;">
+                    <input type="text" id="referral-link" readonly class="form-control" style="border-radius:8px 0 0 8px;">
+                    <button onclick="copyReferralLink()" class="btn btn-primary" style="border-radius:0 8px 8px 0;">কপি</button>
+                </div>
+            </div>
+
+            <div class="rate-info">
+                <p>প্রতি বিজ্ঞাপন = <span id="rate-per-ad2">2</span> COIN</p>
+                <p>ন্যূনতম উত্তোলন: <span id="min-withdraw">20</span> COIN</p>
+                <p>রেফারেল বোনাস: <span id="referral-bonus">5</span> COIN</p>
+                <p class="conversion-note">1000 COIN = 1 টাকা</p>
+            </div>
+        </div>
+
+        <div class="page-section" id="withdraw-page">
+            <h3 style="padding:15px;"><i class="fas fa-wallet"></i> COIN উত্তোলন</h3>
+            <div class="stat-card">
+                <h3>মোট আয়</h3>
+                <p id="total-earned-withdraw">0.00 <small>COIN</small></p>
+                <p class="conversion-note">≈ <span id="total-earned-taka">0.00</span> টাকা</p>
+            </div>
+
+            <div class="withdraw-section" id="withdraw-section">
+                <div class="form-group">
+                    <label>পরিমাণ (COIN)</label>
+                    <input type="number" id="withdraw-amount" class="form-control" min="20000">
+                    <small style="color:var(--text-muted);">ন্যূনতম 20000 COIN = 20 টাকা</small>
+                </div>
+                <div class="form-group">
+                    <label>পেমেন্ট মাধ্যম</label>
+                    <select id="payment-method" class="form-control">
+                        <option value="" disabled selected>নির্বাচন করুন</option>
+                        <option value="bkash">bKash</option>
+                        <option value="nagad">Nagad</option>
+                        <option value="rocket">Rocket</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>মোবাইল নম্বর</label>
+                    <input type="text" id="withdraw-phone" class="form-control" placeholder="01XXXXXXXXX">
+                </div>
+                <button class="btn btn-primary" onclick="withdrawPoints()">
+                    <i class="fas fa-paper-plane"></i> অনুরোধ পাঠান
+                </button>
+            </div>
+
+            <div class="withdraw-history">
+                <h4 style="margin-bottom:10px;">Withdraw History</h4>
+                <div id="withdraw-history-list"></div>
+            </div>
+        </div>
+
+        <div class="page-section" id="notice-page">
+            <h3 style="padding:15px;"><i class="fas fa-bell"></i> নোটিশ</h3>
+            <div id="notice-list"></div>
+        </div>
+    </div>
+
+    <div class="bottom-nav">
+        <a href="#" class="nav-item active" onclick="showPage('home-page', this)">
+            <i class="fas fa-home"></i>
+            <span>হোম</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showPage('withdraw-page', this)">
+            <i class="fas fa-wallet"></i>
+            <span>উত্তোলন</span>
+        </a>
+        <a href="#" class="nav-item" onclick="showPage('notice-page', this)">
+            <i class="fas fa-bell"></i>
+            <span>নোটিশ</span>
+        </a>
+    </div>
+
+    <div id="notification" class="notification">
+        <span id="notification-text"></span>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js";
+        import { getDatabase, ref, set, get, update, push, onValue, query, orderByChild, equalTo } from "https://www.gstatic.com/firebasejs/9.22.0/firebase-database.js";
+
+        const firebaseConfig = {
+          apiKey: "AIzaSyCxOxWS0U12rDDILeNklJ5ybhTCozSGpw0",
+          authDomain: "earn-money-e8092.firebaseapp.com",
+          databaseURL: "https://earn-money-e8092-default-rtdb.firebaseio.com",
+          projectId: "earn-money-e8092",
+          storageBucket: "earn-money-e8092.firebasestorage.app",
+          messagingSenderId: "829995766944",
+          appId: "1:829995766944:web:8fac1890685bd26a1ea5c5",
+          measurementId: "G-7XFZK9NRM6"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        let settings = { perAdRate: 2.00, minWithdraw: 20000, referralBonus: 5.00 };
+        let watchedAdsCount = 0;
+        let earnedPoints = 0.00;
+        let referralCount = 0;
+        let referralEarnings = 0.00;
+        let userId = generateUserId();
+        let isAdLoading = false;
+        let isBlocked = false;
+
+        window.onload = async function() {
+            await loadSettings();
+            await initApp();
+            loadNotices();
+            loadWithdrawHistory();
+        }
+
+        async function loadSettings() {
+            const snapshot = await get(ref(db, 'settings'));
+            if (snapshot.exists()) {
+                settings = {...settings, ...snapshot.val()};
+            }
+            updateSettingsUI();
+        }
+
+        function updateSettingsUI() {
+            document.getElementById('rate-per-ad').textContent = settings.perAdRate;
+            document.getElementById('rate-per-ad2').textContent = settings.perAdRate;
+            document.getElementById('min-withdraw').textContent = settings.minWithdraw;
+            document.getElementById('referral-bonus').textContent = settings.referralBonus;
+        }
+
+        async function initApp() {
+            const userSnap = await get(ref(db, 'users/' + userId));
+            if (userSnap.exists() && userSnap.val().blocked === true) {
+                isBlocked = true;
+                document.body.innerHTML = `
+                    <div style="text-align:center; margin-top:100px; padding:20px;">
+                        <h1 style="color:#dc3545; margin-bottom:20px;"><i class="fas fa-ban"></i></h1>
+                        <h2>Account Blocked</h2>
+                        <p style="color:#adb5bd; margin-top:10px;">তোমার অ্যাকাউন্ট ব্লক করা হয়েছে</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            checkReferral();
+            document.getElementById('user-id').textContent = userId;
+            document.getElementById('user-avatar').textContent = userId.charAt(0).toUpperCase();
+            await loadUserData();
+            updateUI();
+            checkAdReady();
+            generateReferralLink();
+        }
+
+        function generateUserId() {
+            let id = localStorage.getItem('userId');
+            if (!id) {
+                id = Math.floor(100000 + Math.random() * 900000).toString();
+                localStorage.setItem('userId', id);
+            }
+            return id;
+        }
+
+        async function loadUserData() {
+            const snapshot = await get(ref(db, 'users/' + userId));
+            if (snapshot.exists()) {
+                const data = snapshot.val();
+                watchedAdsCount = data.watchedAdsCount || 0;
+                earnedPoints = data.earnedPoints || 0;
+                referralCount = data.referralCount || 0;
+                referralEarnings = data.referralEarnings || 0;
+            }
+        }
+
+        async function saveUserData() {
+            await set(ref(db, 'users/' + userId), {
+                watchedAdsCount,
+                earnedPoints,
+                referralCount,
+                referralEarnings,
+                blocked: isBlocked,
+                lastUpdate: Date.now()
+            });
+        }
+
+        function checkReferral() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const referrerId = urlParams.get('ref');
+            if (referrerId && referrerId!== userId && !localStorage.getItem('referredBy')) {
+                localStorage.setItem('referredBy', referrerId);
+                showNotification('রেফারেল লিঙ্ক ব্যবহার করেছেন!', 'success');
+                update(ref(db, 'users/' + referrerId), {
+                    referralCount: (referralCount || 0) + 1,
+                    referralEarnings: (referralEarnings || 0) + settings.referralBonus
+                });
+            }
+        }
+
+        function generateReferralLink() {
+            const referralLink = `${window.location.href.split('?')[0]}?ref=${userId}`;
+            document.getElementById('referral-link').value = referralLink;
+        }
+
+        window.copyReferralLink = function() {
+            navigator.clipboard.writeText(document.getElementById('referral-link').value);
+            showNotification('লিঙ্ক কপি হয়েছে!', 'success');
+        }
+
+        function checkAdReady() {
+            if (typeof window.show_11025209 !== 'function') {
+                setTimeout(checkAdReady, 1000);
+            } else {
+                document.getElementById('ad-status').innerHTML = '<i class="fas fa-check-circle"></i> বিজ্ঞাপন প্রস্তুত';
+            }
+        }
+
+        function updateUI() {
+            const totalCoins = earnedPoints + referralEarnings;
+            const totalTaka = totalCoins / 1000;
+            
+            document.getElementById('watched-ads').textContent = watchedAdsCount;
+            document.getElementById('earned-money').textContent = totalCoins.toFixed(2);
+            document.getElementById('referral-count').textContent = referralCount;
+            document.getElementById('referral-earnings').textContent = referralEarnings.toFixed(2);
+            document.getElementById('total-earned-taka').textContent = totalTaka.toFixed(2);
+            
+            const progressPercent = (earnedPoints / settings.minWithdraw) * 100;
+            document.getElementById('progress-fill').style.width = `${Math.min(progressPercent, 100)}%`;
+            document.getElementById('ads-progress').textContent = `${earnedPoints.toFixed(0)}/${settings.minWithdraw} COIN`;
+        }
+
+        window.watchAd = async function() {
+            if (isBlocked) return;
+            if (isAdLoading) return;
+            if (typeof window.show_11025209 !== 'function') {
+                showNotification('অ্যাড লোড হচ্ছে, 3 সেকেন্ড অপেক্ষা করো', 'warning');
+                return;
+            }
+
+            isAdLoading = true;
+            document.getElementById('watch-ad-btn').disabled = true;
+
+            try {
+                await window.show_11025209().then(() => {
+                    watchedAdsCount++;
+                    earnedPoints += settings.perAdRate;
+                    saveUserData();
+                    updateUI();
+                    showNotification(`${settings.perAdRate} COIN যোগ হয়েছে!`, 'success');
+                }).catch(() => {
+                    showNotification('অ্যাড শেষ করো COIN পেতে', 'error');
+                });
+            } catch (error) {
+                showNotification('অ্যাড লোড হয়নি', 'error');
+            }
+
+            isAdLoading = false;
+            document.getElementById('watch-ad-btn').disabled = false;
+        }
+
+        window.showPage = function(pageId, element) {
+            document.querySelectorAll('.page-section').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+            element.classList.add('active');
+
+            if (pageId === 'withdraw-page') {
+                document.getElementById('total-earned-withdraw').textContent = (earnedPoints + referralEarnings).toFixed(2);
+                document.getElementById('total-earned-taka').textContent = ((earnedPoints + referralEarnings) / 1000).toFixed(2);
+            }
+        }
+
+        window.showWithdrawForm = function() {
+            showPage('withdraw-page', document.querySelector('.nav-item:nth-child(2)'));
+        }
+
+        window.withdrawPoints = async function() {
+            if (isBlocked) return;
+            
+            const amount = parseFloat(document.getElementById('withdraw-amount').value);
+            const paymentMethod = document.getElementById('payment-method').value;
+            const phoneNumber = document.getElementById('withdraw-phone').value;
+            const total = earnedPoints + referralEarnings;
+
+            if (!amount || amount < settings.minWithdraw) {
+                showNotification(`ন্যূনতম ${settings.minWithdraw} COIN লাগবে`, 'error');
+                return;
+            }
+            if (amount > total) {
+                showNotification('পর্যাপ্ত COIN নেই', 'error');
+                return;
+            }
+            if (!paymentMethod || !phoneNumber) {
+                showNotification('সব তথ্য পূরণ করো', 'error');
+                return;
+            }
+
+            let remaining = amount;
+            if (referralEarnings > 0) {
+                const deduct = Math.min(referralEarnings, remaining);
+                referralEarnings -= deduct;
+                remaining -= deduct;
+            }
+            earnedPoints = Math.max(0, earnedPoints - remaining);
+            
+            await saveUserData();
+
+            const withdrawData = {
+                userId,
+                amount,
+                paymentMethod,
+                phoneNumber,
+                status: 'pending',
+                timestamp: Date.now()
+            };
+
+            await push(ref(db, 'withdraw_requests'), withdrawData);
+            showNotification('Withdraw Request Sent! Pending Approval', 'warning');
+            
+            document.getElementById('withdraw-amount').value = '';
+            document.getElementById('payment-method').value = '';
+            document.getElementById('withdraw-phone').value = '';
+            
+            updateUI();
+            loadWithdrawHistory();
+        }
+
+        function loadWithdrawHistory() {
+            const q = query(ref(db, 'withdraw_requests'), orderByChild('userId'), equalTo(userId));
+            onValue(q, (snapshot) => {
+                const data = snapshot.val();
+                const container = document.getElementById('withdraw-history-list');
+                container.innerHTML = '';
+                
+                if (data) {
+                    const requests = Object.entries(data).sort((a, b) => b[1].timestamp - a[1].timestamp);
+                    requests.forEach(([key, req]) => {
+                        container.innerHTML += `
+                            <div class="withdraw-item">
+                                <div>
+                                    <strong>${req.amount} COIN</strong><br>
+                                    <small style="color:var(--text-muted);">${req.paymentMethod} - ${req.phoneNumber}</small><br>
+                                    <small style="color:var(--text-muted);">${new Date(req.timestamp).toLocaleString('bn-BD')}</small>
+                                </div>
+                                <div class="withdraw-status status-${req.status}">${req.status.toUpperCase()}</div>
+                            </div>
+                        `;
+                    });
+                } else {
+                    container.innerHTML = '<p style="text-align:center; color:var(--text-muted);">No withdraw history</p>';
+                }
+            });
+        }
+
+        function loadNotices() {
+            onValue(ref(db, 'notices'), (snapshot) => {
+                const data = snapshot.val();
+                const container = document.getElementById('notice-list');
+                container.innerHTML = '';
+                if (data) {
+                    Object.values(data).reverse().forEach(notice => {
+                        container.innerHTML += `
+                            <div class="stat-card">
+                                <h3>${notice.title}</h3>
+                                <p>${notice.message}</p>
+                                <small>${new Date(notice.timestamp).toLocaleString('bn-BD')}</small>
+                            </div>
+                        `;
+                    });
+                }
+            });
+        }
+
+        function showNotification(message, type) {
+            const notification = document.getElementById('notification');
+            document.getElementById('notification-text').textContent = message;
+            notification.className = `notification ${type} show`;
+            setTimeout(() => notification.classList.remove('show'), 3000);
+        }
+    </script>
+</body>
+</html>
